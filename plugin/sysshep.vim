@@ -46,30 +46,24 @@ function! s:FindSysShepAuth(fqdn)
   return l:auth
 endfunction
 
-function! s:ReplaceDateTimeVariables(url)
-  let url = a:url
+function! s:ReplaceVariables(url)
+  let variable = matchstr(a:url, '{\w\+\(_\w\+\)\?}')
 
-  if matchstr(l:url, '{start_time}') != ''
-    let time = s:AskForUserInput('Enter Start Time (HH:MM:SS.SSSS): ')
-    let date = s:AskForUserInput('Enter Start Date (YYYY-MM-DD): ')
-    let iso8601 = l:time . 'T' . l:date . 'Z'
-    let url = substitute(l:url, '{start_time}', l:iso8601, '')
+  if l:variable == ''
+    " no more variables, return the final url
+    return a:url
+  else
+    let replacement = s:AskForUserInput('Enter replacement for ' . l:variable . ' : ')
+    let url = substitute(a:url, l:variable, l:replacement, '')
+
+    return s:ReplaceVariables(l:url)
   endif
-
-  if matchstr(l:url, '{end_time}') != ''
-    let time = s:AskForUserInput('Enter End Time (HH:MM:SS.SSSS): ')
-    let date = s:AskForUserInput('Enter End Date (YYYY-MM-DD): ')
-    let iso8601 = l:time . 'T' . l:date . 'Z'
-    let url = substitute(l:url, '{end_time}', l:iso8601, '')
-  endif
-
-  return l:url
 endfunction
 
 function! s:BuildSysShepCurlCommand(url)
   let sysshep = '\(core\|alarm\|synops\|config\|webwalkui\|chrome\).\([^\/]\+\)'
   let curl = 'curl -s0'
-  let url = a:url
+  let url = s:ReplaceVariables(a:url)
 
   let fqdn = matchlist(l:url, l:sysshep)
   if len(l:fqdn) > 2 && l:fqdn[2] != ''
@@ -136,8 +130,6 @@ function! sysshep#SysShepURLRequest()
     if g:sysshep_service_descriptor_header > 0
       call s:DrawServiceDescriptorHeader(url)
     endif
-
-    let url = s:ReplaceDateTimeVariables(l:url)
 
     " execute curl command and print to current buffer
     let curl = s:BuildSysShepCurlCommand(l:url)
