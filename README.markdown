@@ -1,9 +1,7 @@
-sysshep.vim is a Vim plugin to help navigate System Shepherd web services
-
 Usage:
 -------
 
-create an http get request for the URL under the cursor and open the response body
+create an http request for the URL under the cursor and open the response body
 
     :SysShepURLRequest
 
@@ -54,5 +52,5 @@ Requirements:
 ------------
 
 * Vim
-* A Valid System Shepherd Monitoring Portal Account
+* A Valid System Shepherd Monitoring account
 
