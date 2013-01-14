@@ -3,9 +3,15 @@ sysshep.vim is a Vim plugin to help navigate System Shepherd web services
 Usage:
 -------
 
-    put your cursor over a URL and execute the command (or keymapping)
+create an http get request for the URL under the cursor and open the response body
 
-    a navigatable buffer is created from the response body of a curl request
+    :SysShepURLRequest
+
+create a key map for easier usage
+
+    nnoremap SS :SysShepURLRequest<CR>
+
+navigation
 
     use n/N to move between URLs
     use u/C-r to step through history
@@ -44,7 +50,7 @@ create a link for the current System Shepherd portal's service descriptors at th
     let g:sysshep_service_descriptor_header = 0
     let g:sysshep_service_descriptor_header = 1
 
-Requirements
+Requirements:
 ------------
 
 * Vim
