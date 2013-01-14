@@ -5,7 +5,7 @@ create an http request for the URL under the cursor and open the response body
 
     :SysShepURLRequest
 
-create a key map for easier usage
+create a key map to make it easier
 
     nnoremap SS :SysShepURLRequest<CR>
 

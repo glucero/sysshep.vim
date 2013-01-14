@@ -1,4 +1,3 @@
-"
 " Name:                 sysshep.vim
 " Description:          System Shepherd Vim Plugin
 " Version:              0.1
@@ -20,7 +19,7 @@ if !exists('g:sysshep_service_descriptor_header')
   let g:sysshep_service_descriptor_header = 1
 endif
 
-" plugin source
+" plugin
 function! s:AskForUserInput(message)
   call inputsave()
   let user_input = input(a:message)
@@ -47,6 +46,7 @@ function! s:FindSysShepAuth(fqdn)
 endfunction
 
 function! s:ReplaceVariables(url)
+  " assume all variables are 'single' or 'double_word'
   let variable = matchstr(a:url, '{\w\+\(_\w\+\)\?}')
 
   if l:variable == ''
@@ -116,6 +116,7 @@ function! s:DrawServiceDescriptorHeader(url)
   endif
 endfunction
 
+" main function
 function! sysshep#SysShepURLRequest()
   let href = 'https\?://[^ >,;\"]\+'
   let url = matchstr(getline('.'), l:href)
