@@ -24,7 +24,7 @@ syn region  ssjKeywordRegion matchgroup=Quote start=/"/  end=/"\ze\:/ contained
 if version >= 508 || !exists("did_ssj_syn_inits")
 "    version 5.8 and later: only when an item doesn't have highlighting yet
   if version < 508
-    let did_json_syn_inits = 1
+    let did_ssj_syn_inits = 1
     command -nargs=+ HiLink hi link <args>
   else
     command -nargs=+ HiLink hi def link <args>
