@@ -14,6 +14,8 @@ navigation
     use n/N to move between URLs
     use u/C-r to step through history
 
+urls with {variable} strings will prompt the user for a replacement
+
 Configuration:
 -------
 
